@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+          <html lang="en">
+              <head>
+              </head>
+              <body>
+                  <input type="button" value="get data" onclick="fnGetData()" />
+                  <script>
+                      function fnGetData(){
+                          var httpObj=new XMLHttpRequest();
+                          httpObj.open('post','https://jsonplaceholder.typicode.com/users',true);
+                          httpObj.send();
+                          httpObj.onload=function(){
+                              var res=httpObj.responseText;
+                              console.log(res);
+                          }
+                          httpObj.onerror=function(){
+                              console.log('something wentwrong');
+                          }
+                      }
+                  </script>
+              </body>
+          </html>
+          

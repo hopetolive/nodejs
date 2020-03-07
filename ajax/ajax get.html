@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+          <html lang="en">
+              <head>
+              </head>
+              <body>
+                  <input type="button" value="get data" onclick="fnGetData()" />
+                  <script>
+                      
+                          
+    function fnGetData(){
+                          
+
+                          navigator.geolocation.getCurrentPosition((position)=>{
+const latitude  = position.coords.latitude;
+const longitude = position.coords.longitude;
+console.log(longitude)
+var httpObj=new XMLHttpRequest();
+                          var url=`https://api.darksky.net/forecast/e9c480e5aeca2bc6027b216921ebdfe5/${latitude},${longitude}`
+
+
+
+                          httpObj.open('get',`https://cors-anywhere.herokuapp.com/${url}`,true);
+                          httpObj.send();
+
+                          httpObj.onload=function(){
+                              var res=httpObj.responseText
+                              var weather = JSON.parse(res)
+                        
+                              document.write(`<table border=1px>
+                              <thead>
+                              <tr>
+                              <th> timezone</th>
+                              <th> longitude</th>
+                              <th> latitude</th>
+                               </tr>
+                              </thead>
+                              <tr>
+                              <td>${weather.timezone}</td>
+                              <td>${weather.longitude}</td>
+                              <td>${weather.latitude}</td>
+                              </tr>
+
+                              </table>`)
+
+
+                             // console.log(JSON.parse(res));
+                          }
+                          httpObj.onerror=function(){
+                              console.log('something wentwrong');
+                          }
+                          
+                    })
+    }
+                  </script>
+              </body>
+          </html>
+          
